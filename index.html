@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rotating Needle</title>
+  <style>
+    *{
+      background-color: black;
+      color: white;
+    }
+    body{
+      
+      padding: 36px;
+      background-color: grey;
+      border-radius: 10px;
+      margin: 5% 2% 5% 2% ;
+     
+    }
+    h1{
+      color:white;
+      text-align: center;
+      padding: 25px;
+      border-radius: 10px;
+    }
+    .circle {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 200%;
+      color:white;
+      background-image: url(https://th.bing.com/th/id/R.5fec6153ebc424d99fb0a8cf47a48596?rik=P0zOHz8B8a34Aw&riu=http%3a%2f%2fconceptodefinicion.de%2fwp-content%2fuploads%2f2016%2f11%2fMotor.jpg&ehk=VyMQCEnGdczTOKmll1jn8gtJvL7CbNhvEjNiijPdNtw%3d&risl=&pid=ImgRaw&r=0);
+      background-position: center;
+      background-repeat: no-repeat;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      margin: 20px auto;
+      
+    }
+    .circle:hover{
+      scale:1.125;
+    }
+    
+    #line {
+      position: absolute;
+      top: 32%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 2px;
+      height: 120px;
+      background-color: white;
+      transform-origin: bottom center;
+      transition: transform 0.5s ease-in-out;
+      transition-delay: 0.2s;
+    
+    }
+    
+    .angle {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: bold;
+      color: white;
+      transition: background-color 0.3s ease-in-out;
+    }
+    
+    .angle:nth-child(1) {
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .angle:nth-child(2) {
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+    }
+    
+    .angle:nth-child(3) {
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .angle:nth-child(4) {
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+    
+    .input-container {
+      text-align: center;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 10px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 10px;
+      
+    }
+    
+    input[type="number"] {
+      width: 100px;
+      padding: 5px;
+      margin-right: 10px;
+      border: solid 1px white;
+      color: white;
+      border-radius: 5px;
+    }
+    
+    button {
+      padding: 5px 10px;
+      border: solid 1px white;
+      border-radius: 5px;
+      color:white;
+    }
+    button:hover{
+      background-color: white;
+      color:black;
+    }
+  </style>
+</head>
+<body>
+  <h1>&#9733 Stepper Motor Rotation &#9733</h1>
+  <div class="circle">&#9733
+    <div id="line"></div>
+    <div class="angle">90°</div>
+    <div class="angle">180°</div>
+    <div class="angle">270°</div>
+   <centre> <div class="angle">0°</div>
+  </div>
+  <div class="input-container">
+    <label for="angleInput">Enter Angle (in multiples of 0.36):</label>
+    <input type="number" id="angleInput" placeholder="0" step="0.36">
+    <button id="rotateButton">Rotate</button>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const line = document.getElementById('line');
+      const rotateButton = document.getElementById('rotateButton');
+
+      const rotateLine = (angle) => {
+        line.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+      };
+
+      const rotate = () => {
+        const angleInput = document.getElementById('angleInput').value;
+        if (angleInput !== '') {
+          const angle = parseFloat(angleInput) * 0.36;
+          rotateLine(angle);
+          setTimeout(() => {
+            rotateLine(0);
+          }, 1000); // Reset back to 0 degrees after 1 second (adjust the duration as needed)
+        }
+      };
+
+      rotateButton.addEventListener('click', rotate);
+    });
+  </script>
+</body>
+</html>
